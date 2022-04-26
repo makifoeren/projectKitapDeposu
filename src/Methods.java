@@ -23,6 +23,7 @@ public class Methods {
                 "    6-CIKIS");
 
         System.out.println("Lutfen yapmak istediginiz islemi giriniz...");
+
         int islem = scan.nextInt();
 
 
@@ -62,22 +63,31 @@ public class Methods {
         int secim = scan.nextInt();
 
         switch (secim) {
-            case 1:
-                System.out.println("Aradiginiz yazarin adini giriniz...");
+            case 1: {
+                scan.nextLine();//dummy
+                System.out.println("Yazar adi giriniz :");
                 String yazarAdi = scan.nextLine();
-                for (int i = 0; i < kitapListesi.size(); i++) {
+                System.out.println("Yazar Adi : " + yazarAdi);
+                int kontrol = 0; // kitap yoksa 0, varsa 1
 
-                    if (yazarAdi == kitapListesi.get(i).getYazarAdi()) {
 
-                        System.out.println("Kitabin no : " + kitapListesi.get(i).getKitapNo());
-                        System.out.println("Kitabin yazari : " + kitapListesi.get(i).getYazarAdi());
-                        System.out.println("Kitabin adi : " + kitapListesi.get(i).getKitapAdi());
-                        System.out.println("Kitabin fiyati : " + kitapListesi.get(i).getKitapFiyat());
-
-                    } else System.out.println("Aradiginiz kitap bulunamadi..");
-
+                for (Depo each : kitapListesi) {
+                    if (each.getYazarAdi().equalsIgnoreCase(yazarAdi))
+                    {
+                        System.out.println("*************");
+                        System.out.println("Kitap Adi\t\t\t: " + each.getKitapAdi());
+                        System.out.println("Kitap Yazari\t\t: " + each.getYazarAdi());
+                        System.out.println("Kitap No\t\t\t: " + each.getKitapNo());
+                        System.out.println("Kitap Fiyati\t\t: " + each.getKitapFiyat() + " TL");
+                        System.out.println("*************"); // her kitap bilgisi arasina eklemek icin
+                        kontrol++;
+                    }
+                }
+                if (kontrol == 0) {
+                    System.out.println("Aradiginiz yazar bulunamamistir");
                 }
 
+            }
                 break;
 
             case 2:
@@ -133,7 +143,7 @@ public class Methods {
         int kitapNo = kitapNumaratik;
         kitapNumaratik++;
 
-        Depo yeniKitap = new Depo(kitapNo, kitapAdi, yazarAdi, kitapFiyat);
+        Depo yeniKitap=new Depo(kitapAdi,yazarAdi,kitapFiyat,kitapNo);
         kitapListesi.add(yeniKitap);
 
         islemeDevamDongusu();

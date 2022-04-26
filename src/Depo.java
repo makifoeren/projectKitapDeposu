@@ -1,29 +1,21 @@
+import java.util.Scanner;
+
 public class Depo {
 
-    // kitap bilgileri
-
-    int kitapNo;
     String kitapAdi;
     String yazarAdi;
+    int kitapNo;
     int kitapFiyat;
 
-    public Depo(){
 
+    public Depo() {
     }
 
-    public Depo(int kitapNo, String kitapAdi, String yazarAdi, int kitapFiyat) {
-        this.kitapNo = kitapNo;
+    public Depo(String kitapAdi, String yazarAdi, int kitapNo, int kitapFiyat) {
         this.kitapAdi = kitapAdi;
         this.yazarAdi = yazarAdi;
-        this.kitapFiyat = kitapFiyat;
-    }
-
-    public int getKitapNo() {
-        return kitapNo;
-    }
-
-    public void setKitapNo(int kitapNo) {
         this.kitapNo = kitapNo;
+        this.kitapFiyat = kitapFiyat;
     }
 
     public String getKitapAdi() {
@@ -42,21 +34,19 @@ public class Depo {
         this.yazarAdi = yazarAdi;
     }
 
+    public int getKitapNo() {
+        return kitapNo;
+    }
+
+    public void setKitapNo(int kitapNo) {
+        this.kitapNo = kitapNo;
+    }
+
     public int getKitapFiyat() {
         return kitapFiyat;
     }
 
     public void setKitapFiyat(int kitapFiyat) {
         this.kitapFiyat = kitapFiyat;
-    }
-
-    @Override
-    public String toString() {
-        return "Depo{" +
-                "kitapNo=" + kitapNo +
-                ", kitapAdi='" + kitapAdi + '\'' +
-                ", yazarAdi='" + yazarAdi + '\'' +
-                ", kitapFiyat=" + kitapFiyat +
-                '}';
     }
 }
