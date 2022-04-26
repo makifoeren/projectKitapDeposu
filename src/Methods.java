@@ -33,9 +33,11 @@ public class Methods {
                 break;
 
             case 2://NUMARA ILE KITAP ARAMA
+                numaraIleKitapArama();
                 break;
 
             case 3://BILGI ILE KITAP ARAMA
+                bilgiIleKitapAram();
                 break;
 
             case 4://NUMARA ILE SİLME
@@ -53,6 +55,68 @@ public class Methods {
         }// switch sonu
 
 
+    }
+
+    private static void bilgiIleKitapAram() {
+        System.out.println("Yazar adi ile aramak icin 1 \nKitap adi ile aramak icin 2 \nFiyat ile aramak icin 3");
+        int secim = scan.nextInt();
+
+        switch (secim) {
+            case 1:
+                System.out.println("Aradiginiz yazarin adini giriniz...");
+                String yazarAdi = scan.nextLine();
+                for (int i = 0; i < kitapListesi.size(); i++) {
+
+                    if (yazarAdi == kitapListesi.get(i).getYazarAdi()) {
+
+                        System.out.println("Kitabin no : " + kitapListesi.get(i).getKitapNo());
+                        System.out.println("Kitabin yazari : " + kitapListesi.get(i).getYazarAdi());
+                        System.out.println("Kitabin adi : " + kitapListesi.get(i).getKitapAdi());
+                        System.out.println("Kitabin fiyati : " + kitapListesi.get(i).getKitapFiyat());
+
+                    } else System.out.println("Aradiginiz kitap bulunamadi..");
+
+                }
+
+                break;
+
+            case 2:
+
+
+                break;
+
+            case 3:
+
+
+                break;
+
+
+            default:
+
+        }
+
+    }
+
+    private static void numaraIleKitapArama() {
+        System.out.println("Aradiginiz istediginiz kitabin numarasini yaziniz...");
+        int numara = scan.nextInt();
+
+        boolean tercih = true;
+
+        for (int i = 0; i < kitapListesi.size(); i++) {
+            if (kitapListesi.get(i).getKitapNo() == numara) {
+
+                System.out.println("Kitabin no : " + kitapListesi.get(i).getKitapNo());
+                System.out.println("Kitabin yazari : " + kitapListesi.get(i).getYazarAdi());
+                System.out.println("Kitabin adi : " + kitapListesi.get(i).getKitapAdi());
+                System.out.println("Kitabin fiyati : " + kitapListesi.get(i).getKitapFiyat());
+                tercih = false;
+
+            }
+        }
+        if (tercih == true) {
+            System.out.println("Aradiginiz kitap bulunamdi..");
+        }
     }
 
     private static void kitapEkle() {
@@ -78,15 +142,15 @@ public class Methods {
 
     private static void islemeDevamDongusu() {
 
-        int tercih=0;
+        int tercih = 0;
 
         System.out.println("Devam etmek icin 1 \nCikmak icin 2  yaziniz..");
-        tercih= scan.nextInt();
+        tercih = scan.nextInt();
 
-        if (tercih==1) anaMenu(); else if (tercih==2) cikisb();
+        if (tercih == 1) anaMenu();
+        else if (tercih == 2) cikisb();
         else System.out.println("Hatali verigirdiniz ...");
         islemeDevamDongusu();
-
 
 
     }
