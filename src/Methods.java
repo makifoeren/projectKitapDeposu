@@ -7,12 +7,14 @@ public class Methods {
 
     static List<Depo> kitapListesi = new ArrayList<>();
     static Scanner scan = new Scanner(System.in);
-    static int kitapNumaratik = 1000;
+    static int kitapNumaratik = 1007;
 
-    public static void anaMenu() {
+    public static void anaMenu() throws InterruptedException {
+
+        FeykKitapEkle.feykKitapEkle();
 
         System.out.println("====================================\n\t "
-                + "YILDIZ kITAP CENTER'A HOSGELDINIZ " +
+                + "YILDIZ KITAP CENTER'A HOSGELDINIZ " +
                 "\n===================================" +
                 "\n============= İŞLEMLER ============\r\n     " +
                 "1-KITAP EKLEME \r\n    " +
@@ -24,9 +26,28 @@ public class Methods {
 
         System.out.println("Lutfen yapmak istediginiz islemi giriniz...");
 
-        int islem = scan.nextInt();
+        int islem = 0;
+        while (true) {
+            try {
+                islem = scan.nextInt();
+                if (islem<=0 || islem>6){
+                    System.out.println("Tercihiniz 1 ile 6 arasi olmalidir...");
+                }else break;
+            } catch (Exception e) {
+                String str=scan.nextLine();
+                System.out.println("Lutfen numerik veri giriniz...");
+            }
 
+        }
+        for (int i = 0; i < 3; i++) {
+            System.out.print(".");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+            }
+        }
 
+        System.out.println(" ");
         switch (islem) {
 
             case 1: // KITAP EKLEME
@@ -42,23 +63,63 @@ public class Methods {
                 break;
 
             case 4://NUMARA ILE SİLME
+                numaraIleSilme();
                 break;
 
             case 5://KITAP LISTELEME
+                kitapListele();
+
                 break;
 
             case 6://CIKIS
+                cikisb();
                 break;
 
             default:
-
+                System.out.println("Hatali veri girdiniz..");
+                islemeDevamDongusu();
 
         }// switch sonu
 
+    }
+
+    private static void numaraIleSilme() throws InterruptedException {
+        System.out.println("Silmek istediginiz kitabin numarasini giriniz...");
+        int no = scan.nextInt();
+        int silno = 0;
+        for (Depo eachsl : kitapListesi) {
+            if (eachsl.getKitapNo() == no) {
+                kitapListesi.remove(eachsl);
+                System.out.println("Silmek istediginiz , " + eachsl.getKitapNo() + " silindi. ");
+                silno++;
+                break;
+            }
+
+        }
+        if (silno == 0) {
+            System.out.println("Aradiginiz kitap bulunamamistir");
+        }
+        islemeDevamDongusu();
 
     }
 
-    private static void bilgiIleKitapAram() {
+    private static void kitapListele() throws InterruptedException {
+        System.out.println("Kitaplar listeleniyor");
+        for (int i = 0; i < 3; i++) {
+            System.out.print(".");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
+        }
+        System.out.println(" ");
+        for (Depo klist : kitapListesi) {
+            System.out.println(klist.toString());
+        }
+        islemeDevamDongusu();
+    }
+
+    private static void bilgiIleKitapAram() throws InterruptedException {
         System.out.println("Yazar adi ile aramak icin 1 \nKitap adi ile aramak icin 2 \nFiyat ile aramak icin 3");
         int secim = scan.nextInt();
 
@@ -68,68 +129,92 @@ public class Methods {
                 System.out.println("Yazar adi giriniz :");
                 String yazarAdi = scan.nextLine();
                 System.out.println("Yazar Adi : " + yazarAdi);
+
                 int kontrol = 0; // kitap yoksa 0, varsa 1
 
-
                 for (Depo each : kitapListesi) {
-                    if (each.getYazarAdi().equalsIgnoreCase(yazarAdi))
-                    {
-                        System.out.println("*************");
-                        System.out.println("Kitap Adi\t\t\t: " + each.getKitapAdi());
-                        System.out.println("Kitap Yazari\t\t: " + each.getYazarAdi());
-                        System.out.println("Kitap No\t\t\t: " + each.getKitapNo());
-                        System.out.println("Kitap Fiyati\t\t: " + each.getKitapFiyat() + " TL");
-                        System.out.println("*************"); // her kitap bilgisi arasina eklemek icin
+                    if (each.getYazarAdi().equalsIgnoreCase(yazarAdi)) {
+                        System.out.println(each.toString());
                         kontrol++;
                     }
                 }
                 if (kontrol == 0) {
                     System.out.println("Aradiginiz yazar bulunamamistir");
                 }
-
             }
-                break;
+            islemeDevamDongusu();
+            break;
 
             case 2:
+                scan.nextLine();//dummy
+                System.out.println("Kitap adi giriniz :");
+                String kitapAdi = scan.nextLine();
+                System.out.println("Kitap Adi : " + kitapAdi);
 
+                int kontrol1 = 0; // kitap yoksa 0, varsa 1
+
+                for (Depo eachk : kitapListesi) {
+                    if (eachk.getKitapAdi().equalsIgnoreCase(kitapAdi)) {
+                        System.out.println(eachk.toString());
+                        kontrol1++;
+                    }
+                }
+                if (kontrol1 == 0) {
+                    System.out.println("Aradiginiz kitap bulunamamistir");
+                }
+                islemeDevamDongusu();
 
                 break;
 
             case 3:
+                scan.nextLine();//dummy
+                System.out.println("Aradiginiz kitabin fiyatini giriniz :");
+                int fiyat = scan.nextInt();
+                System.out.println("Kitabin fiyat : " + fiyat);
 
+                int kontrol2 = 0; // kitap yoksa 0, varsa 1
 
+                for (Depo eachf : kitapListesi) {
+                    if (eachf.getKitapFiyat() == fiyat) {
+                        System.out.println(eachf.toString());
+                        kontrol2++;
+                    }
+                }
+                if (kontrol2 == 0) {
+                    System.out.println("Aradiginiz kitap bulunamamistir");
+                }
+                islemeDevamDongusu();
                 break;
 
-
             default:
+                System.out.println(" Yanlis giris yaptiniz..");
+
+                islemeDevamDongusu();
 
         }
 
     }
 
-    private static void numaraIleKitapArama() {
+    private static void numaraIleKitapArama() throws InterruptedException {
         System.out.println("Aradiginiz istediginiz kitabin numarasini yaziniz...");
         int numara = scan.nextInt();
 
-        boolean tercih = true;
+        int kontroln = 0;
 
-        for (int i = 0; i < kitapListesi.size(); i++) {
-            if (kitapListesi.get(i).getKitapNo() == numara) {
-
-                System.out.println("Kitabin no : " + kitapListesi.get(i).getKitapNo());
-                System.out.println("Kitabin yazari : " + kitapListesi.get(i).getYazarAdi());
-                System.out.println("Kitabin adi : " + kitapListesi.get(i).getKitapAdi());
-                System.out.println("Kitabin fiyati : " + kitapListesi.get(i).getKitapFiyat());
-                tercih = false;
-
+        for (Depo eachn : kitapListesi) {
+            if (eachn.getKitapNo() == numara) {
+                System.out.println(eachn.toString());
+                kontroln++;
             }
         }
-        if (tercih == true) {
-            System.out.println("Aradiginiz kitap bulunamdi..");
+        if (kontroln == 0) {
+            System.out.println("Aradiginiz kitap bulunamda...");
         }
+        islemeDevamDongusu();
+
     }
 
-    private static void kitapEkle() {
+    private static void kitapEkle() throws InterruptedException {
 
         System.out.println("Lutfen yazar adi giriniz...");
         String yazarAdi = scan.nextLine();
@@ -143,14 +228,14 @@ public class Methods {
         int kitapNo = kitapNumaratik;
         kitapNumaratik++;
 
-        Depo yeniKitap=new Depo(kitapAdi,yazarAdi,kitapFiyat,kitapNo);
+        Depo yeniKitap = new Depo(kitapNo, yazarAdi, kitapAdi, kitapFiyat);
         kitapListesi.add(yeniKitap);
 
         islemeDevamDongusu();
 
     }
 
-    private static void islemeDevamDongusu() {
+    private static void islemeDevamDongusu() throws InterruptedException {
 
         int tercih = 0;
 
@@ -168,6 +253,7 @@ public class Methods {
     private static void cikisb() {
 
         System.out.println("Isleminizi tamamladiniz yine bekleriz...");
+        System.exit(0);
     }
 
 }
