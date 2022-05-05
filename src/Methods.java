@@ -11,7 +11,7 @@ public class Methods {
 
     public static void anaMenu() throws InterruptedException {
 
-        FeykKitapEkle.feykKitapEkle();
+
 
         System.out.println("====================================\n\t "
                 + "YILDIZ KITAP CENTER'A HOSGELDINIZ " +
@@ -42,7 +42,7 @@ public class Methods {
         for (int i = 0; i < 3; i++) {
             System.out.print(".");
             try {
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
             }
         }
@@ -113,8 +113,10 @@ public class Methods {
             }
         }
         System.out.println(" ");
+        scan.nextLine();
         for (Depo klist : kitapListesi) {
             System.out.println(klist.toString());
+
         }
         islemeDevamDongusu();
     }
@@ -217,8 +219,9 @@ public class Methods {
     private static void kitapEkle() throws InterruptedException {
 
         System.out.println("Lutfen yazar adi giriniz...");
-        String yazarAdi = scan.nextLine();
         scan.nextLine();
+        String yazarAdi = scan.nextLine();
+
         System.out.println("Lutfen kitap adi giriniz...");
         String kitapAdi = scan.nextLine();
 
@@ -254,6 +257,7 @@ public class Methods {
 
         System.out.println("Isleminizi tamamladiniz yine bekleriz...");
         System.exit(0);
+
     }
 
 }
